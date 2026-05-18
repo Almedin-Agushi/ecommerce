@@ -8,6 +8,8 @@
 </head>
 <body class="bg-gray-100 p-10">
 
+@include('layouts.navbar')
+
     <div class="max-w-6xl mx-auto">
 
         <div class="flex justify-between items-center mb-8">
@@ -23,6 +25,16 @@
 
         </div>
 
+            <form action="{{ route('products.index') }}"
+      method="GET"
+      class="mb-6">
+
+    <input type="text"
+           name="search"
+           placeholder="Search products..."
+           class="w-1/2 border p-3 rounded-lg">
+
+</form>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
             @foreach($products as $product)
@@ -30,8 +42,8 @@
                 <div class="bg-white p-6 rounded-xl shadow">
                       @if($product->image)
 
-        <img src="{{ asset('storage/' . $product->image) }}"
-             class="w-full h-40 object-contain rounded-lg mb-4 bg-white">
+                <img src="{{ asset('storage/' . $product->image) }}"
+                class="w-full h-40 object-contain rounded-lg mb-4 bg-white">
 
     @endif
                     <h2 class="text-2xl font-bold mb-2">
@@ -73,7 +85,9 @@
             @endforeach
 
         </div>
-
+            <div class="mt-8">
+                {{ $products->links() }}
+            </div>
     </div>
 
 </body>

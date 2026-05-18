@@ -11,12 +11,15 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $products = Product::all();
+   public function index(Request $request)
+{
+    $search = $request->search;
+
+    $products = Product::where('name', 'like', "%$search%")
+        ->paginate(6);
 
     return view('products.index', compact('products'));
-    }
+}
 
     /**
      * Show the form for creating a new resource.
