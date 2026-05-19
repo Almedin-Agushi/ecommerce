@@ -24,7 +24,7 @@ return new class extends Migration
             ->nullable()
             ->constrained()
             ->onDelete('set null');
-
+        $table->integer('stock')->default(1);
         $table->timestamps();
     });
 }

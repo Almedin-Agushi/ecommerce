@@ -127,6 +127,19 @@ public function cart()
 
     return redirect()->back();
 }
+public function removeCart($id)
+{
+    $cart = session()->get('cart', []);
+
+    if(isset($cart[$id])) {
+
+        unset($cart[$id]);
+
+        session()->put('cart', $cart);
+    }
+
+    return redirect()->back();
+}
     public function destroy(Product $product)
     {
          $product->delete();

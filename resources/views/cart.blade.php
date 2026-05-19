@@ -16,33 +16,93 @@
         Shopping Cart
     </h1>
 
-    @foreach($cart as $id => $details)
+    <table class="w-full bg-white rounded-xl shadow overflow-hidden">
 
-        <div class="bg-white p-6 rounded-xl shadow mb-4 flex items-center gap-6">
+    <thead class="bg-gray-200">
 
-            <img src="{{ asset('storage/' . $details['image']) }}"
-                 class="w-24 h-24 object-contain">
+        <tr>
 
-            <div>
+            <th class="p-4 text-left">Product</th>
+            <th class="p-4">Price</th>
+            <th class="p-4">Quantity</th>
+            <th class="p-4">Subtotal</th>
+            <th class="p-4">Action</th>
 
-                <h2 class="text-2xl font-bold">
-                    {{ $details['name'] }}
-                </h2>
+        </tr>
 
-                <p class="text-gray-600">
-                    Qty: {{ $details['quantity'] }}
-                </p>
+    </thead>
 
-                <p class="text-xl font-bold mt-2">
+    <tbody>
+
+        @php $total = 0; @endphp
+
+        @foreach($cart as $id => $details)
+
+            @php
+                $subtotal = $details['price'] * $details['quantity'];
+                $total += $subtotal;
+            @endphp
+
+            <tr class="border-b">
+
+                <td class="p-4 flex items-center gap-4">
+
+                    <img src="{{ asset('storage/' . $details['image']) }}"
+                         class="w-24 h-24 object-contain">
+
+                    <div>
+
+                        <h2 class="text-xl font-bold">
+                            {{ $details['name'] }}
+                        </h2>
+
+                    </div>
+
+                </td>
+
+                <td class="text-center font-bold">
                     ${{ $details['price'] }}
-                </p>
+                </td>
 
-            </div>
+                <td class="text-center">
+                    {{ $details['quantity'] }}
+                </td>
 
-        </div>
+                <td class="text-center font-bold">
+                    ${{ $subtotal }}
+                </td>
 
-    @endforeach
+                <td class="text-center">
 
+                    <form action="{{ route('cart.remove', $id) }}"
+                          method="POST">
+
+                        @csrf
+                        @method('DELETE')
+
+                        <button type="submit"
+                                class="bg-red-500 text-white px-4 py-2 rounded">
+                            Remove
+                        </button>
+
+                    </form>
+
+                </td>
+
+            </tr>
+
+        @endforeach
+
+    </tbody>
+
+</table>
+<div class="text-right mt-6">
+
+    <h2 class="text-3xl font-bold">
+        Total: ${{ $total }}
+    </h2>
+
+</div>
 </div>
 
 </body>
