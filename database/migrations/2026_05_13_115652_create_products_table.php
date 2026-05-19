@@ -9,17 +9,25 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::create('products', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->text('description');
-            $table->decimal('price', 8, 2);
-            $table->string('image')->nullable();
-            $table->timestamps();
-        });
-    }
+   public function up(): void
+{
+    Schema::create('products', function (Blueprint $table) {
+
+        $table->id();
+
+        $table->string('name');
+        $table->text('description');
+        $table->decimal('price', 8, 2);
+        $table->string('image')->nullable();
+
+        $table->foreignId('category_id')
+            ->nullable()
+            ->constrained()
+            ->onDelete('set null');
+
+        $table->timestamps();
+    });
+}
 
     /**
      * Reverse the migrations.

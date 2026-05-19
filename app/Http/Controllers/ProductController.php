@@ -5,18 +5,23 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Models\Category;
 class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-   public function index(Request $request)
+  public function index(Request $request)
 {
     $search = $request->search;
 
-    $products = Product::where('name', 'like', "%$search%")
-        ->paginate(6);
+    $products = Product::query();
+
+    if ($search) {
+        $products->where('name', 'like', "%{$search}%");
+    }
+
+    $products = $products->paginate(6);
 
     return view('products.index', compact('products'));
 }
@@ -26,7 +31,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.create');
+         $categories = Category::all();
+
+        return view('products.create', compact('categories'));
     }
 
     /**
@@ -47,6 +54,8 @@ class ProductController extends Controller
         'description' => $request->description,
         'price' => $request->price,
         'image' => $imagePath,
+        'category_id' => $request->category_id,
+        'stock' => $request->stock,
     ]);
 
     return redirect('/products');
@@ -77,10 +86,47 @@ class ProductController extends Controller
 
         return redirect('/products');
     }
+public function category($id)
+{
+    $products = Product::where('category_id', $id)->paginate(6);
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    return view('products.index', compact('products'));
+}
+public function cart()
+{
+    $cart = session()->get('cart', []);
+
+    return view('cart', compact('cart'));
+}
+
+   public function addToCart($id)
+{
+    $product = Product::findOrFail($id);
+
+    $cart = session()->get('cart', []);
+
+    if(isset($cart[$id])) {
+
+        if($cart[$id]['quantity'] < $product->stock) {
+
+            $cart[$id]['quantity']++;
+
+        }
+
+    } else {
+
+        $cart[$id] = [
+            "name" => $product->name,
+            "price" => $product->price,
+            "image" => $product->image,
+            "quantity" => 1
+        ];
+    }
+
+    session()->put('cart', $cart);
+
+    return redirect()->back();
+}
     public function destroy(Product $product)
     {
          $product->delete();

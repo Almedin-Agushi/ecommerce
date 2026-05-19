@@ -13,45 +13,48 @@
 
     <div class="max-w-6xl mx-auto">
 
-        <h1 class="text-4xl font-bold mb-8">
-            Dashboard
-        </h1>
+       <div class="p-10 bg-gray-100 dark:bg-gray-900 min-h-screen">
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <h1 class="text-4xl font-bold mb-8 text-black dark:text-white">
+        Dashboard
+    </h1>
 
-            <div class="bg-white p-6 rounded-xl shadow">
-                <h2 class="text-2xl font-bold">
-                    Products
-                </h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-                <p class="text-gray-500 mt-2">
-                    Manage all products
-                </p>
-            </div>
+        <div class="bg-blue-500 dark:bg-blue-700 text-white p-6 rounded-xl shadow">
+            <h2 class="text-2xl font-bold">
+                Total Products
+            </h2>
 
-            <div class="bg-white p-6 rounded-xl shadow">
-                <h2 class="text-2xl font-bold">
-                    Orders
-                </h2>
+            <p class="text-4xl mt-4">
+                {{ $products }}
+            </p>
+        </div>
 
-                <p class="text-gray-500 mt-2">
-                    View customer orders
-                </p>
-            </div>
+        <div class="bg-green-500 text-white p-6 rounded-xl shadow">
+            <h2 class="text-2xl font-bold">
+                Total Categories
+            </h2>
 
-            <div class="bg-white p-6 rounded-xl shadow">
-                <h2 class="text-2xl font-bold">
-                    Users
-                </h2>
+            <p class="text-4xl mt-4">
+                {{ $categories }}
+            </p>
+        </div>
 
-                <p class="text-gray-500 mt-2">
-                    Manage users
-                </p>
-            </div>
+        <div class="bg-purple-500 text-white p-6 rounded-xl shadow">
+            <h2 class="text-2xl font-bold">
+                Total Users
+            </h2>
 
+            <p class="text-4xl mt-4">
+                {{ $users }}
+            </p>
         </div>
 
     </div>
 
+</div>
+
+        
 </body>
 </html>

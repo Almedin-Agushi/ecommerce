@@ -6,14 +6,18 @@
     @vite('resources/css/app.css')
     <title>Add Product</title>
 </head>
-<body class="bg-gray-100 p-10">
+<body class="bg-gray-100 dark:bg-gray-900 p-10">
 @include('layouts.navbar')
-<div class="max-w-2xl mx-auto bg-white p-8 rounded-xl shadow">
+<div class="max-w-2xl mx-auto bg-white dark:bg-gray-800 p-8 rounded-xl shadow">
 
     <h1 class="text-3xl font-bold mb-6">
         Add Product
     </h1>
-
+<input type="number"
+       name="stock"
+       placeholder="Stock"
+       class="w-full border p-3 rounded-lg mb-4">
+       
     <form action="{{ route('products.store') }}"
           method="POST"
           enctype="multipart/form-data"
@@ -35,6 +39,18 @@
                name="price"
                placeholder="Price"
                class="w-full border p-3 rounded-lg">
+            <select name="category_id"
+                class="w-full border p-3 rounded-lg mb-4">
+
+                @foreach($categories as $category)
+
+                <option value="{{ $category->id }}">
+                    {{ $category->name }}
+                </option>
+
+                @endforeach
+
+             </select>
 
         <input type="file"
                name="image"
