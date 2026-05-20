@@ -13,10 +13,7 @@
     <h1 class="text-3xl font-bold mb-6">
         Add Product
     </h1>
-<input type="number"
-       name="stock"
-       placeholder="Stock"
-       class="w-full border p-3 rounded-lg mb-4">
+
        
     <form action="{{ route('products.store') }}"
           method="POST"
@@ -39,6 +36,12 @@
                name="price"
                placeholder="Price"
                class="w-full border p-3 rounded-lg">
+
+               <input type="number"
+                name="stock"
+                placeholder="Stock"
+                class="w-full border p-3 rounded-lg mb-4">
+
             <select name="category_id"
                 class="w-full border p-3 rounded-lg mb-4">
 

@@ -49,14 +49,14 @@ class ProductController extends Controller
             ->store('products', 'public');
     }
 
-    Product::create([
-        'name' => $request->name,
-        'description' => $request->description,
-        'price' => $request->price,
-        'image' => $imagePath,
-        'category_id' => $request->category_id,
-        'stock' => $request->stock,
-    ]);
+ Product::create([
+    'name' => $request->name,
+    'description' => $request->description,
+    'price' => $request->price,
+    'stock' => $request->stock,
+    'image' => $imagePath,
+    'category_id' => $request->category_id,
+]);
 
     return redirect('/products');
     }
